@@ -31,6 +31,14 @@ class Board
         return @board_map[number-1] == number
     end
 
+    def full? 
+        if @board_map.any?(Integer)
+            return false
+        else 
+            return true
+        end
+    end
+
     def add_move(number, player_symbol) 
         @board_map[number-1] = player_symbol
     end

@@ -26,8 +26,20 @@ class Game
         @current_player = @player1
     end
 
+    def switch_player
+        if @current_player == @player1
+            return @player2
+        else
+            return @player1
+        end
+    end
+
     def player_win(player) 
         return "Player #{player.name} wins!"
+    end
+
+    def draw
+        return "Draw. Game over."
     end
     
     def play
@@ -42,6 +54,11 @@ class Game
                 if board.win?(@current_player)
                     @game_over = true
                     puts player_win(@current_player)
+                elsif board.full?
+                    @game_over = true
+                    puts draw
+                else
+                    @current_player = switch_player
                 end
             else
                 puts board.cell_not_free(move)
