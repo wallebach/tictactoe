@@ -5,7 +5,7 @@ class Board
     
     def initialize
         @win_combinations = [[1,2,3], [4,5,6], [7,8,9], [1,5,9], [3,5,7], [1,4,7], [2,5,8], [3,6,9]]
-        @board_map = [1,2,3,4,5,6,7,8,9]    
+        @board_map = init_board_map   
     end
 
     def show
@@ -20,11 +20,26 @@ class Board
         symbol = player.symbol
         result = false
         @win_combinations.each do | combination |
-            if combination == [symbol, symbol, symbol]
+            if @board_map[combination[0]-1] == symbol && @board_map[combination[1]-1] == symbol && @board_map[combination[2]-1] == symbol
                 result = true
-                break
             end
         end
         result
+    end
+
+    def cell_empty?(number) 
+        return @board_map[number-1] == number
+    end
+
+    def add_move(number, player_symbol) 
+        @board_map[number-1] = player_symbol
+    end
+
+    def init_board_map 
+        return [1,2,3,4,5,6,7,8,9] 
+    end
+
+    def cell_not_free(cell)
+        return "Not possible to use cell #{cell}, there is a value already."
     end
 end
